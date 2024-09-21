@@ -1,8 +1,10 @@
+import 'package:blocrestdiocleanarch/common/bloc/button/button_state.dart';
 import 'package:blocrestdiocleanarch/common/bloc/button/button_state_cubit.dart';
 import 'package:blocrestdiocleanarch/common/widgets/button/basic_app_button.dart';
 import 'package:blocrestdiocleanarch/data/models/signup_req_params.dart';
 import 'package:blocrestdiocleanarch/domain/usecases/signup_use_case.dart';
 import 'package:blocrestdiocleanarch/presentation/auth/pages/signin_page.dart';
+import 'package:blocrestdiocleanarch/presentation/home/pages/home_page.dart';
 import 'package:blocrestdiocleanarch/service_locator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,37 +21,51 @@ class SignupPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ButtonStateCubit(),
       child: Scaffold(
-        body: SafeArea(
-            minimum: const EdgeInsets.only(top: 100, right: 16, left: 16),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _signup(),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  _userNameField(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _emailField(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _password(),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  _createAccountButton(context),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _signinText(context)
-                ],
-              ),
-            )),
+        body: BlocListener<ButtonStateCubit, ButtonState>(
+          listener: (context, state) {
+            if (state is ButtonSuccessState) {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ));
+            } else if (state is ButtonFailureState) {
+              var snackBar = SnackBar(content: Text(state.errorMessage));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          child: SafeArea(
+              minimum: const EdgeInsets.only(top: 100, right: 16, left: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _signup(),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    _userNameField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _emailField(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _password(),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    _createAccountButton(context),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _signinText(context)
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }
