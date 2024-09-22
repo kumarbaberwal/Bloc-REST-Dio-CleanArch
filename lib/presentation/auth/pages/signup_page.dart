@@ -90,12 +90,13 @@ class SignupPage extends StatelessWidget {
     return TextField(
       controller: _emailCon,
       decoration: InputDecoration(
-        fillColor: Colors.grey.shade400,
+        fillColor: Colors.grey.shade100,
+        filled: true,
         hintText: 'Email',
         hintStyle: const TextStyle(
           color: Colors.grey,
         ),
-        border: const OutlineInputBorder(),
+        border: InputBorder.none,
       ),
     );
   }
@@ -103,9 +104,14 @@ class SignupPage extends StatelessWidget {
   Widget _password() {
     return TextField(
       controller: _passwordCon,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
+        fillColor: Colors.grey.shade100,
+        filled: true,
         hintText: 'Password',
-        border: OutlineInputBorder(),
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+        ),
+        border: InputBorder.none,
       ),
     );
   }
@@ -126,7 +132,7 @@ class SignupPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SigninPage(),
+                      builder: (context) => SigninPage(),
                     ));
               })
       ]),
@@ -144,9 +150,14 @@ class SignupPage extends StatelessWidget {
   Widget _userNameField() {
     return TextField(
       controller: _usernameCon,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
+        fillColor: Colors.grey.shade100,
+        filled: true,
         hintText: 'Username',
-        border: OutlineInputBorder(),
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+        ),
+        border: InputBorder.none,
       ),
     );
   }

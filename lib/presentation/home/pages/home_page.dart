@@ -27,10 +27,11 @@ class HomePage extends StatelessWidget {
           listener: (context, state) {
             if (state is ButtonSuccessState) {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignupPage(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignupPage(),
+                ),
+              );
             }
           },
           child: Center(

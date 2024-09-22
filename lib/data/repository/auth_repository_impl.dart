@@ -1,3 +1,4 @@
+import 'package:blocrestdiocleanarch/data/models/signin_req_params.dart';
 import 'package:blocrestdiocleanarch/data/models/signup_req_params.dart';
 import 'package:blocrestdiocleanarch/data/models/user_model.dart';
 import 'package:blocrestdiocleanarch/data/source/auth_api_service.dart';
@@ -42,7 +43,21 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future logout() async {
+  Future<Either> logout() async {
     return await sl<AuthLocalService>().logout();
+  }
+
+  @override
+  Future<Either> signin(SigninReqParams signinReqParams) async{
+    Either result = await sl<AuthApiService>().signin(signinReqParams);
+    return result.fold((error) {
+      return Left(error);
+    }, (data) async {
+      Response response = data;
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setString('token', response.data['token']);
+      return Right(response);
+    });
   }
 }
