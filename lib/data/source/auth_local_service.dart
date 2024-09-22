@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthLocalService {
   Future<bool> isLoggedIn();
+  Future logout();
 }
 
 class AuthLocalServiceImpl extends AuthLocalService {
@@ -14,5 +15,11 @@ class AuthLocalServiceImpl extends AuthLocalService {
     } else {
       return true;
     }
+  }
+
+  @override
+  Future logout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
   }
 }

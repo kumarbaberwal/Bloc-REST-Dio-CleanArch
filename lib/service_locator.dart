@@ -3,7 +3,9 @@ import 'package:blocrestdiocleanarch/data/repository/auth_repository_impl.dart';
 import 'package:blocrestdiocleanarch/data/source/auth_api_service.dart';
 import 'package:blocrestdiocleanarch/data/source/auth_local_service.dart';
 import 'package:blocrestdiocleanarch/domain/repository/auth_repository.dart';
+import 'package:blocrestdiocleanarch/domain/usecases/get_user_use_case.dart';
 import 'package:blocrestdiocleanarch/domain/usecases/is_logged_in_use_case.dart';
+import 'package:blocrestdiocleanarch/domain/usecases/logout_use_case.dart';
 import 'package:blocrestdiocleanarch/domain/usecases/signup_use_case.dart';
 import 'package:get_it/get_it.dart';
 
@@ -23,4 +25,6 @@ void setupServiceLocator() {
 
   sl.registerSingleton<SignupUseCase>(SignupUseCase());
   sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
+  sl.registerSingleton<GetUserUseCase>(GetUserUseCase());
+  sl.registerSingleton<LogoutUseCase>(LogoutUseCase());
 }
